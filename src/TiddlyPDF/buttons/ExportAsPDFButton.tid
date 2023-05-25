@@ -1,0 +1,15 @@
+caption: {{$:/plugins/GameDungeon/TiddlyPDF/images/pdf}} export as PDF
+description: exports wiki as PDF
+tags: $:/tags/PageControls
+title: $:/plugins/GameDungeon/TiddlyPDF/Buttons/export-as-pdf
+
+\define action()
+<$action-export-pdf />
+\end
+
+\whitespace trim
+<$button actions=<<action>> class=<<tv-config-toolbar-class>>>
+<$list filter="[<tv-config-toolbar-icons>match[yes]]">
+{{$:/plugins/GameDungeon/TiddlyPDF/images/pdf}}
+</$list>
+</$button>

@@ -9,11 +9,14 @@
     "update": "npm-check-updates -u",
     "new": "tiddlywiki-plugin-dev new",
     "dev": "tiddlywiki-plugin-dev dev",
-    "build": "npm run clean && tiddlywiki-plugin-dev build",
-    "build:library": "npm run clean && tiddlywiki-plugin-dev build --library --output dist/library",
-    "publish": "npm run clean && tiddlywiki-plugin-dev publish",
-    "publish:offline": "npm run clean && tiddlywiki-plugin-dev publish --offline"
+    "build": "yarn run clean && tiddlywiki-plugin-dev build",
+    "build:library": "yarn run clean && tiddlywiki-plugin-dev build --library --output dist/library",
+    "publish": "yarn run clean && tiddlywiki-plugin-dev publish",
+    "publish:offline": "yarn run clean && tiddlywiki-plugin-dev publish --offline"
   },
+  "tsFiles": [
+    "src/ExportAsPDFWidget.ts"
+  ],
   "engines": {
     "node": ">=16"
   },
@@ -33,7 +36,9 @@
   "devDependencies": {
     "@modern-js/eslint-config": "^2.1.0",
     "@modern-js/tsconfig": "^2.1.0",
+    "@types/html-to-pdfmake": "^2.4.1",
     "@types/node": "^18.11.18",
+    "@types/pdfmake": "^0.2.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "rimraf": "^4.0.5",
@@ -42,8 +47,9 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "jspdf": "^2.5.1",
+    "html-to-pdfmake": "^2.4.20",
     "npm-check-updates": "^16.6.2",
+    "pdfmake": "^0.2.7",
     "tiddlywiki": "^5.2.5",
     "tiddlywiki-plugin-dev": "^0.0.34"
   }
