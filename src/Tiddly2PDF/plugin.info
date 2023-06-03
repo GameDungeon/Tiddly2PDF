@@ -1,6 +1,6 @@
 {
-  "title": "$:/plugins/GameDungeon/TiddlyPDF",
-  "name": "TiddlyPDF",
+  "title": "$:/plugins/GameDungeon/Tiddly2PDF",
+  "name": "Tiddly2PDF",
   "author": "GameDungeon",
   "description": "Export Tiddlers as Styled PDFs",
   "plugin-type": "plugin",

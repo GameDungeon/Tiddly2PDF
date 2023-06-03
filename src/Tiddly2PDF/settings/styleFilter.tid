@@ -1,0 +1,6 @@
+title: $:/core/ui/ControlPanel/Settings/Tiddly2PDF/styleFilter
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: PDF Stylesheets
+
+
+|PDF Stylesheets |<$edit-text tiddler="$:/config/Tiddly2PDF/styleFilter" default="" tag="input"/> |

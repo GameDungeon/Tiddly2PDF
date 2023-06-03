@@ -1,7 +1,7 @@
-caption: {{$:/plugins/GameDungeon/TiddlyPDF/images/pdf}} export as PDF
+caption: {{$:/plugins/GameDungeon/Tiddly2PDF/images/pdf}} export as PDF
 description: exports wiki as PDF
 tags: $:/tags/PageControls
-title: $:/plugins/GameDungeon/TiddlyPDF/Buttons/export-as-pdf
+title: $:/plugins/GameDungeon/Tiddly2PDF/Buttons/export-as-pdf
 
 \define action()
 <$action-export-pdf />
@@ -10,6 +10,6 @@ title: $:/plugins/GameDungeon/TiddlyPDF/Buttons/export-as-pdf
 \whitespace trim
 <$button actions=<<action>> class=<<tv-config-toolbar-class>>>
 <$list filter="[<tv-config-toolbar-icons>match[yes]]">
-{{$:/plugins/GameDungeon/TiddlyPDF/images/pdf}}
+{{$:/plugins/GameDungeon/Tiddly2PDF/images/pdf}}
 </$list>
 </$button>

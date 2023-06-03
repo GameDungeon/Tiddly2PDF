@@ -1,0 +1,18 @@
+title: $:/core/ui/ControlPanel/Settings/ExportAsPDF
+tags: $:/tags/ControlPanel/SettingsTab
+caption: Tiddly2PDF
+list-after: $:/core/ui/ControlPanel/Settings/TiddlyWiki
+
+These settings let you control the Tiddly2PDF output.
+
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/ControlPanel/Settings/Tiddly2PDF]]">
+
+<div style="border-top:1px solid #eee;">
+
+!! <$link><$transclude field="caption"/></$link>
+
+<$transclude/>
+
+</div>
+
+</$list>

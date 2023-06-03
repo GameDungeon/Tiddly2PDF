@@ -4,7 +4,8 @@
         "tiddlywiki/filesystem",
         "tiddlywiki/tiddlyweb",
         "tiddlywiki/pluginlibrary",
-        "tiddlywiki/highlight"
+        "tiddlywiki/highlight",
+        "tiddlywiki/codemirror"
     ],
     "themes": [
         "tiddlywiki/vanilla"

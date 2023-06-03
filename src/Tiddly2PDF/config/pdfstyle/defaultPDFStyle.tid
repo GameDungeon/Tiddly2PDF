@@ -1,0 +1,76 @@
+title: $:/config/Tiddly2PDF/defaultPDFStyle
+type: json
+
+{
+    "html-b": {
+        "bold": true
+    },
+    "html-strong": {
+        "bold": true
+    },
+    "html-u": {
+        "decoration": "underline"
+    },
+    "html-s": {
+        "decoration":  "lineThrough"
+    },
+    "html-em": {
+        "italics": true
+    },
+    "html-i": {
+        "italics": true
+    },
+    "html-h1": {
+        "fontSize": 24, 
+        "bold": true, 
+        "marginBottom": 5
+    },
+    "html-h2": {
+        "fontSize": 22, 
+        "bold": true, 
+        "marginBottom": 5
+    },
+    "html-h3": {
+        "fontSize": 20, 
+        "bold": true, 
+        "marginBottom": 5
+    },
+    "html-h4": {
+        "fontSize": 18, 
+        "bold": true, 
+        "marginBottom": 5
+    },
+    "html-h5": {
+        "fontSize": 16, 
+        "bold": true, 
+        "marginBottom": 5
+    },
+    "html-h6": {
+        "fontSize": 14, 
+        "bold": true, 
+        "marginBottom": 5
+    },
+    "html-a": {
+        "color": "blue", 
+        "decoration": "underline"
+    },
+    "html-strike": {
+        "decoration": "lineThrough"
+    },
+    "html-p": {
+        "margin": [0, 5, 0, 10]
+    },
+    "html-ul": {
+        "marginBottom": 5
+    },
+    "html-li": {
+        "marginLeft": 5
+    },
+    "html-table": {
+        "marginBottom": 5
+    },
+    "html-th": {
+        "bold": true, 
+        "fillColor": "#EEEEEE"
+    }
+  }

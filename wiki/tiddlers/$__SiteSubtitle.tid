@@ -1,6 +1,4 @@
 created: 20220426154059698
-modified: 20221205070308575
+modified: 20230527204309091
 title: $:/SiteSubtitle
 type: text/vnd.tiddlywiki
-
-<$list filter="[[$:/language]get[text]removeprefix[$:/languages/]else[en-GB]]" variable="lang"><$list filter="[<lang>search[zh]]">现代太微插件开发框架</$list><$list filter="[<lang>!search[zh]]">Modern ~TiddlyWiki  plugin developing framework</$list></$list>

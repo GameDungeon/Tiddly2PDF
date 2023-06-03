@@ -7,7 +7,7 @@
       return;
     }
     // separate the widget from the exports here, so we can skip the require of react code if `!$tw.browser`. Those ts code will error if loaded in the nodejs side.
-    const components = require('$:/plugins/GameDungeon/TiddlyPDF/ExportAsPDFWidget.js');
+    const components = require('$:/plugins/GameDungeon/Tiddly2PDF/ExportAsPDFWidget.js');
     const { exportAsPDF } = components;
 
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */

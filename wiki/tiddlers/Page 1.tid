@@ -1,5 +1,5 @@
 created: 20230525204037488
-modified: 20230525205537309
+modified: 20230603193618070
 tags: notebook
 title: Page 1
 type: text/vnd.tiddlywiki
@@ -8,6 +8,8 @@ Hello this is __''page 1''__! __Enjoy__ your stay.
 
 Does this break ^^stuff^^
 
-<<<
-HELLO
-<<<
+[img[image.png]]
+
+* 1
+* 2
+* 3

@@ -1,0 +1,6 @@
+title: $:/core/ui/ControlPanel/Settings/Tiddly2PDF/pageFilter
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: PDF Page Filter
+
+
+|PDF Page Filter |<$edit-text tiddler="$:/config/Tiddly2PDF/pageFilter" default="" tag="input"/> |
