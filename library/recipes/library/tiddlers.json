@@ -6,10 +6,10 @@
         "description": "Export Tiddlers as Styled PDFs",
         "plugin-type": "plugin",
         "version": "0.0.1",
-        "list": "readme",
+        "list": "readme credits",
         "dependents": "",
         "type": "application/json",
-        "Modern.TiddlyDev#SHA256-Hashed": "9fc16abe586fd5853c0d8b8f6706d129740bc1deddd70c693fe526fa56fb516e",
+        "Modern.TiddlyDev#SHA256-Hashed": "f30da79cc7b2bf062a380f5be19719eff0bf608fa082ac3c62735d3e18f5f450",
         "readme": "! Tiddly2PDF\n\nExport Tiddlers as Styled PDFs",
         "requires-reload": "yes"
     }
