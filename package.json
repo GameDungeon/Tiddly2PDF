@@ -39,6 +39,7 @@
     "@types/html-to-pdfmake": "^2.4.1",
     "@types/node": "^18.11.18",
     "@types/pdfmake": "^0.2.2",
+    "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "rimraf": "^4.0.5",
     "ts-node": "^10.9.1",
@@ -47,6 +48,7 @@
   },
   "dependencies": {
     "html-to-pdfmake": "^2.4.20",
+    "npm-check-updates": "^16.10.12",
     "pdfmake": "^0.2.7",
     "tiddlywiki": "^5.2.5",
     "tiddlywiki-plugin-dev": "^0.0.34"
