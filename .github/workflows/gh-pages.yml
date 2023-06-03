@@ -35,10 +35,10 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: npm install -g pnpm && pnpm install
+        run: yarn install
 
       - name: Build Library and static website
-        run: pnpm run publish
+        run: yarn run publish
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

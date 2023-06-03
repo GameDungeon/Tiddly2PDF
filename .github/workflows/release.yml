@@ -15,8 +15,6 @@ on:
     branches:
       - master
       - main
-    tags:
-      - 'v*.*.*'
     paths-ignore:
       - 'README.md'
       - 'wiki/**'
@@ -55,10 +53,10 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: npm install -g pnpm && pnpm install
+        run: yarn install
 
       - name: Build Plugins
-        run: pnpm run build
+        run: yarn run build
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
