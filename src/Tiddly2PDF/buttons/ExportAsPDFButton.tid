@@ -1,5 +1,5 @@
-caption: {{$:/plugins/GameDungeon/Tiddly2PDF/images/pdf}} export as PDF
-description: exports wiki as PDF
+caption: {{$:/plugins/GameDungeon/Tiddly2PDF/images/pdf}} Export2PDF
+description: Exports wiki to PDF
 tags: $:/tags/PageControls
 title: $:/plugins/GameDungeon/Tiddly2PDF/Buttons/export-as-pdf
 
