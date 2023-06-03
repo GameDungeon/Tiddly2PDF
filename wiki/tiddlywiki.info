@@ -3,15 +3,12 @@
     "plugins": [
         "tiddlywiki/filesystem",
         "tiddlywiki/tiddlyweb",
-        "tiddlywiki/pluginlibrary",
-        "tiddlywiki/highlight",
-        "tiddlywiki/codemirror"
+        "tiddlywiki/pluginlibrary"
     ],
     "themes": [
         "tiddlywiki/vanilla"
     ],
     "languages": [
-        "zh-Hans"
     ],
     "build": {}
 }
