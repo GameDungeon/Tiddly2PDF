@@ -1,5 +1,5 @@
 created: 20230603202708545
-modified: 20230603205304102
+modified: 20230604001147616
 tags: pdf
 title: Tiddly2PDF Documentation
 type: text/vnd.tiddlywiki
@@ -8,3 +8,6 @@ Hello, and welcome to the Tiddly2PDF documentation.
 
 As an example of this plugin, and for your convenience, this documentation can be exported as a pdf by clicking the PDF tool in the top right. 
 
+Right now this plugin is under heavy development, so these docs are basically empty.
+
+Settings are in: Control Panel -> Settings -> Tiddly2PDF
