@@ -1,4 +1,5 @@
-title: $:/config/Tiddly2PDF/defaultPDFStyle
+title: $:/plugins/GameDungeon/Tiddly2PDF/pdfstyles/defaultStyles
+tags: $:/tags/Tiddly2PDF/pdfStyle
 type: json
 
 {

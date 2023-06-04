@@ -11,7 +11,13 @@ import htmlToPdfmake from 'html-to-pdfmake';
 const STYLEFILTER = "$:/config/Tiddly2PDF/styleFilter";
 const PAGEFILTER = "$:/config/Tiddly2PDF/pageFilter";
 
-const emptyDefaultStyle = {
+interface docDefinition {
+    content: any[],
+    images: any,
+    styles: any
+}
+
+const emptyDefaultStyle: any = {
     b: '',
     strong: '',
     u: '',
@@ -35,64 +41,73 @@ const emptyDefaultStyle = {
 
 class ExportAsPDF extends Widget {
     // @ts-ignore
-    render(parent: Node, _nextSibling: Node): void {
+    render(parent: Node, _nextSibling: Node) {
         this.computeAttributes();
         this.execute();
     }
 
-    invokeAction(triggeringWidget: Widget, event: IWidgetEvent) {
+    getTiddlerContent(path: string): string {
+        return ($tw.wiki.getTiddler(path) as any).fields.text.trim()
+    }
 
-        var tiddlers = $tw.wiki.filterTiddlers($tw.wiki.getTiddler(PAGEFILTER).fields.text.trim());
+    getTidsFromFilterTid(path: string): string[] {
+        return $tw.wiki.filterTiddlers(this.getTiddlerContent(path));
+    }
 
-        var styleTiddlers = $tw.wiki.filterTiddlers($tw.wiki.getTiddler(STYLEFILTER).fields.text.trim());
+    getPDFStyles() {
+        let styleTiddlers = this.getTidsFromFilterTid(STYLEFILTER);
 
-        var styleJSONS = [];
+        let styleJSONS: any[] = [];
         styleTiddlers.forEach(tiddler => {
-            styleJSONS.push(JSON.parse($tw.wiki.getTiddler(tiddler).fields.text.trim()))
+            styleJSONS.push(JSON.parse(this.getTiddlerContent(tiddler)))
         });
 
-        var styles = Object.assign(...styleJSONS);
+        // @ts-ignore
+        return Object.assign(...styleJSONS);
+    }
 
-        var docDefinition = {
+    invokeAction(triggeringWidget: Widget, event: IWidgetEvent) {
+
+        let tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
+
+        let PDFStyles = this.getPDFStyles();
+
+        let dd: docDefinition = {
             content: [],
             images: {},
-            styles: styles
+            styles: PDFStyles
         };
 
         let breakEvery = true;
 
         tiddlers.forEach((tiddler, i) => {
-            var options = {};
+            let options = {};
 
-            var parser = $tw.wiki.parseTiddler(tiddler, options)
-            var widgetNode = $tw.wiki.makeWidget(parser, options);
+            let parser = $tw.wiki.parseTiddler(tiddler, options)
+            let widgetNode = $tw.wiki.makeWidget(parser, options);
 
-            var container = $tw.fakeDocument.createElement("div");
+            let container = $tw.fakeDocument.createElement("div");
 
             widgetNode.render(container, null);
 
-            // @ts-ignore
-            var html: { content: any[], images: string[] } = htmlToPdfmake(container.innerHTML, {
+            let html: { content: any[], images: string[] } = (htmlToPdfmake(container.innerHTML, {
                 imagesByReference: true,
-                // @ts-ignore
                 defaultStyles: emptyDefaultStyle,
-            })
+            }) as any)
 
             if (breakEvery && i < tiddlers.length - 1) {
                 html.content[html.content.length - 1].pageBreak = 'after';
             }
 
-            // @ts-ignore
-            docDefinition.content.push(...html.content);
+            dd.content.push(...html.content);
             if (Object.keys(html.images).length !== 0) {
-                // @ts-ignore
-                Object.assign(docDefinition.images, html.images);
+                Object.assign(dd.images, html.images);
             }
         })
 
         //console.log(docDefinition)
 
-        pdfMake.createPdf(<any>docDefinition).download();
+        pdfMake.createPdf(dd).download();
 
         return true; // Action was invoked
     };

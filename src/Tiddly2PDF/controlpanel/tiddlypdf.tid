@@ -1,4 +1,4 @@
-title: $:/core/ui/ControlPanel/Settings/ExportAsPDF
+title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/Tiddly2PDF
 tags: $:/tags/ControlPanel/SettingsTab
 caption: Tiddly2PDF
 list-after: $:/core/ui/ControlPanel/Settings/TiddlyWiki
