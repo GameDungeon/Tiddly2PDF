@@ -1,0 +1,5 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/footerTemplate
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: Footer Template
+
+|Footer Template |<$edit-text tiddler="$:/config/Tiddly2PDF/footerTemplate" default="" tag="input"/> |

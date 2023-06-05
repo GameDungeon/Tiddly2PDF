@@ -11,8 +11,12 @@ import htmlToPdfmake from 'html-to-pdfmake';
 const STYLEFILTER = "$:/config/Tiddly2PDF/styleFilter";
 const PAGEFILTER = "$:/config/Tiddly2PDF/pageFilter";
 const PAGEBREAK = "$:/config/Tiddly2PDF/pageBreakAfterTiddler";
+const HEADERTEMPLATEPATH = "$:/config/Tiddly2PDF/headerTemplate";
+const FOOTERTEMPLATEPATH = "$:/config/Tiddly2PDF/footerTemplate";
 
 interface docDefinition {
+    header: CallableFunction,
+    footer: CallableFunction,
     content: any[],
     images: any,
     styles: any
@@ -73,7 +77,39 @@ class ExportAsPDF extends Widget {
 
         let breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
 
+        let headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
+        let footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
+
+        console.log(breakPages)
+
+        let headerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
+            headerHTML = headerHTML.replaceAll("$currentPage", currentPage.toString())
+                                   .replaceAll("$pageCount",   pageCount.toString())
+                                   .replaceAll("$pageSize",    pageSize.toString());
+
+            console.log(headerHTML)
+            console.log(htmlToPdfmake(headerHTML, {
+                defaultStyles: emptyDefaultStyle,
+            }))
+            
+            return htmlToPdfmake(headerHTML, {
+                defaultStyles: emptyDefaultStyle,
+            })
+        }
+
+        let footerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
+            footerHTML = footerHTML.replaceAll("$currentPage", currentPage.toString())
+                                   .replaceAll("$pageCount",   pageCount.toString())
+                                   .replaceAll("$pageSize",    pageSize.toString());
+
+            return htmlToPdfmake(footerHTML, {
+                defaultStyles: emptyDefaultStyle,
+            })
+        }
+
         let dd: docDefinition = {
+            header: headerFunction,
+            footer: footerFunction,
             content: [],
             images: {},
             styles: this.getPDFStyles()
@@ -89,10 +125,10 @@ class ExportAsPDF extends Widget {
 
             widgetNode.render(container, null);
 
-            let html: { content: any[], images: string[] } = (htmlToPdfmake(container.innerHTML, {
+            let html: { content: any[], images: string[] } = <any>htmlToPdfmake(container.innerHTML, {
                 imagesByReference: true,
                 defaultStyles: emptyDefaultStyle,
-            }) as any)
+            })
 
             if (breakPages && i < tiddlers.length - 1) {
                 html.content[html.content.length - 1].pageBreak = 'after';
@@ -104,9 +140,9 @@ class ExportAsPDF extends Widget {
             }
         })
 
-        //console.log(docDefinition)
+        console.log(dd)
 
-        pdfMake.createPdf(dd).download();
+        pdfMake.createPdf(<any>dd).download();
 
         return true; // Action was invoked
     };

@@ -1,0 +1,4 @@
+title: $:/config/Tiddly2PDF/footerTemplate
+type: string
+text: $:/plugins/GameDungeon/templates/footerTemplate
+
