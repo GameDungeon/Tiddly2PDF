@@ -1,0 +1,6 @@
+title: $:/plugins/GameDungeon/templates/pageTemplate
+type: text/html
+
+<h1>$title</h1>
+
+<div>$body</div>

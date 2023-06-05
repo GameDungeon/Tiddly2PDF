@@ -1,0 +1,5 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/pageTemplate
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: Page Template
+
+|Page Template |<$edit-text tiddler="$:/config/Tiddly2PDF/pageTemplate" default="" tag="input"/> |

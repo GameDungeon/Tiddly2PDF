@@ -13,6 +13,7 @@ const PAGEFILTER = "$:/config/Tiddly2PDF/pageFilter";
 const PAGEBREAK = "$:/config/Tiddly2PDF/pageBreakAfterTiddler";
 const HEADERTEMPLATEPATH = "$:/config/Tiddly2PDF/headerTemplate";
 const FOOTERTEMPLATEPATH = "$:/config/Tiddly2PDF/footerTemplate";
+const PAGETEMPLATEPATH = "$:/config/Tiddly2PDF/pageTemplate";
 
 interface docDefinition {
     header: CallableFunction,
@@ -79,30 +80,26 @@ class ExportAsPDF extends Widget {
 
         let headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
         let footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
-
-        console.log(breakPages)
+        let pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
 
         let headerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
-            headerHTML = headerHTML.replaceAll("$currentPage", currentPage.toString())
-                                   .replaceAll("$pageCount",   pageCount.toString())
-                                   .replaceAll("$pageSize",    pageSize.toString());
-
-            console.log(headerHTML)
-            console.log(htmlToPdfmake(headerHTML, {
-                defaultStyles: emptyDefaultStyle,
-            }))
-            
-            return htmlToPdfmake(headerHTML, {
+            let currentHeaderHTML = headerHTML
+                .replaceAll("$currentPage", currentPage.toString())
+                .replaceAll("$pageCount",   pageCount.toString())
+                .replaceAll("$pageSize",    pageSize.toString());
+     
+            return htmlToPdfmake(currentHeaderHTML, {
                 defaultStyles: emptyDefaultStyle,
             })
         }
 
         let footerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
-            footerHTML = footerHTML.replaceAll("$currentPage", currentPage.toString())
-                                   .replaceAll("$pageCount",   pageCount.toString())
-                                   .replaceAll("$pageSize",    pageSize.toString());
+            let currentFooterHTML = footerHTML
+                .replaceAll("$currentPage", currentPage.toString())
+                .replaceAll("$pageCount",   pageCount.toString())
+                .replaceAll("$pageSize",    pageSize.toString());
 
-            return htmlToPdfmake(footerHTML, {
+            return htmlToPdfmake(currentFooterHTML, {
                 defaultStyles: emptyDefaultStyle,
             })
         }
@@ -125,7 +122,13 @@ class ExportAsPDF extends Widget {
 
             widgetNode.render(container, null);
 
-            let html: { content: any[], images: string[] } = <any>htmlToPdfmake(container.innerHTML, {
+            let bodyHtml = container.innerHTML;
+
+            let currentPageHTML = pageHTML
+                .replaceAll("$title", tiddler)
+                .replaceAll("$body", bodyHtml)
+
+            let html: { content: any[], images: string[] } = <any>htmlToPdfmake(currentPageHTML, {
                 imagesByReference: true,
                 defaultStyles: emptyDefaultStyle,
             })

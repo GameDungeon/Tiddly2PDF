@@ -1,0 +1,3 @@
+title: $:/config/Tiddly2PDF/pageTemplate
+type: string
+text: $:/plugins/GameDungeon/templates/pageTemplate

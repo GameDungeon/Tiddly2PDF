@@ -1,0 +1,4 @@
+title: $:/config/Tiddly2PDF/backgroundTemplate
+type: string
+text: $:/plugins/GameDungeon/templates/backgroundTemplate
+
