@@ -10,6 +10,7 @@ import htmlToPdfmake from 'html-to-pdfmake';
 
 const STYLEFILTER = "$:/config/Tiddly2PDF/styleFilter";
 const PAGEFILTER = "$:/config/Tiddly2PDF/pageFilter";
+const PAGEBREAK = "$:/config/Tiddly2PDF/pageBreakAfterTiddler";
 
 interface docDefinition {
     content: any[],
@@ -70,15 +71,13 @@ class ExportAsPDF extends Widget {
 
         let tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
 
-        let PDFStyles = this.getPDFStyles();
+        let breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
 
         let dd: docDefinition = {
             content: [],
             images: {},
-            styles: PDFStyles
+            styles: this.getPDFStyles()
         };
-
-        let breakEvery = true;
 
         tiddlers.forEach((tiddler, i) => {
             let options = {};
@@ -95,7 +94,7 @@ class ExportAsPDF extends Widget {
                 defaultStyles: emptyDefaultStyle,
             }) as any)
 
-            if (breakEvery && i < tiddlers.length - 1) {
+            if (breakPages && i < tiddlers.length - 1) {
                 html.content[html.content.length - 1].pageBreak = 'after';
             }
 
