@@ -14,10 +14,12 @@ const PAGEBREAK = "$:/config/Tiddly2PDF/pageBreakAfterTiddler";
 const HEADERTEMPLATEPATH = "$:/config/Tiddly2PDF/headerTemplate";
 const FOOTERTEMPLATEPATH = "$:/config/Tiddly2PDF/footerTemplate";
 const PAGETEMPLATEPATH = "$:/config/Tiddly2PDF/pageTemplate";
+const BACKGROUNDTEMPLATEPATH = "$:/config/Tiddly2PDF/backgroundTemplate";
 
 interface docDefinition {
     header: CallableFunction,
     footer: CallableFunction,
+    background: CallableFunction,
     content: any[],
     images: any,
     styles: any
@@ -81,12 +83,12 @@ class ExportAsPDF extends Widget {
         let headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
         let footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
         let pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
+        let backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
 
         let headerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
             let currentHeaderHTML = headerHTML
                 .replaceAll("$currentPage", currentPage.toString())
-                .replaceAll("$pageCount",   pageCount.toString())
-                .replaceAll("$pageSize",    pageSize.toString());
+                .replaceAll("$pageCount",   pageCount.toString());
      
             return htmlToPdfmake(currentHeaderHTML, {
                 defaultStyles: emptyDefaultStyle,
@@ -96,10 +98,18 @@ class ExportAsPDF extends Widget {
         let footerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
             let currentFooterHTML = footerHTML
                 .replaceAll("$currentPage", currentPage.toString())
-                .replaceAll("$pageCount",   pageCount.toString())
-                .replaceAll("$pageSize",    pageSize.toString());
+                .replaceAll("$pageCount",   pageCount.toString());
 
             return htmlToPdfmake(currentFooterHTML, {
+                defaultStyles: emptyDefaultStyle,
+            })
+        }
+
+        let backgroundFunction = function(currentPage: number, pageSize: any): any {
+            let currentBackgroundHTML = backgroundHTML
+                .replaceAll("$currentPage", currentPage.toString());
+
+            return htmlToPdfmake(currentBackgroundHTML, {
                 defaultStyles: emptyDefaultStyle,
             })
         }
@@ -107,6 +117,7 @@ class ExportAsPDF extends Widget {
         let dd: docDefinition = {
             header: headerFunction,
             footer: footerFunction,
+            background: backgroundFunction,
             content: [],
             images: {},
             styles: this.getPDFStyles()
@@ -143,7 +154,7 @@ class ExportAsPDF extends Widget {
             }
         })
 
-        console.log(dd)
+        //console.log(dd)
 
         pdfMake.createPdf(<any>dd).download();
 
