@@ -1,5 +1,6 @@
 title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/pageFilter
 tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
 caption: PDF Page Filter
+list-before:
 
 |PDF Page Filter |<$edit-text tiddler="$:/config/Tiddly2PDF/pageFilter" default="" tag="input"/> |

@@ -1,5 +1,6 @@
 title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/backgroundTemplate
 tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
 caption: Background Template
+list-after: $:/plugins/GameDungeon/Tiddly2PDF/Settings/footerTemplate
 
 |Background Template |<$edit-text tiddler="$:/config/Tiddly2PDF/backgroundTemplate" default="" tag="input"/> |

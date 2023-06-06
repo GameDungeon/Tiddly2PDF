@@ -1,5 +1,6 @@
 title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/styleFilter
 tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
 caption: PDF Stylesheets
+list-after: $:/plugins/GameDungeon/Tiddly2PDF/Settings/pageBreakAfterTiddler
 
 |PDF Stylesheets |<$edit-text tiddler="$:/config/Tiddly2PDF/styleFilter" default="" tag="input"/> |

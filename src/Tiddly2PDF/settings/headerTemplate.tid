@@ -1,5 +1,6 @@
 title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/headerTemplate
 tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
 caption: Header Template
+list-after: $:/plugins/GameDungeon/Tiddly2PDF/Settings/pageTemplate
 
 |Header Template |<$edit-text tiddler="$:/config/Tiddly2PDF/headerTemplate" default="" tag="input"/> |
