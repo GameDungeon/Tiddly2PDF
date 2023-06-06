@@ -3,6 +3,9 @@ tags: $:/tags/Tiddly2PDF/pdfStyle
 type: json
 
 {
+    "html-code": {
+        "background": "#a6a6a6"
+    },
     "html-b": {
         "bold": true
     },

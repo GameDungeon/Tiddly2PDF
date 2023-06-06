@@ -1,5 +1,5 @@
 created: 20230603202708545
-modified: 20230604213125857
+modified: 20230606005825480
 tags: pdf
 title: Tiddly2PDF Documentation
 type: text/vnd.tiddlywiki
@@ -8,6 +8,52 @@ Hello, and welcome to the ''Tiddly2PDF'' documentation.
 
 As an example of this plugin, and for your convenience, this documentation can be exported as a pdf by clicking the PDF tool in the top right. 
 
-Right now this plugin is under heavy development, so these docs are basically empty.
+!! ''Configuration''
 
-Settings are in: Control Panel -> Settings -> Tiddly2PDF
+All settings are in: Control Panel -> Settings -> Tiddly2PDF
+
+!! ''Styling''
+
+PDFs are styled with a CSS-like system used by PDFMake. Stylesheet tiddlers are supposed to be JSON tiddlers. 
+
+The PDF Stylesheets option is a filter to grab stylesheets. By default it is set to get all tiddlers tagged with "$:/tags/Tiddly2PDF/pdfStyle"
+
+[[Available styling options|https://pdfmake.github.io/docs/0.1/document-definition-object/styling/#style-properties]]:  (''These are different then the basic CSS ones, and many CSS ones are not supported'')
+
+
+```
+{
+    "html-class": {
+        "bold": true
+    },
+    "other-class": {
+        "fontSize": 26
+    }
+}
+```
+
+!! ''Templates''
+
+The template tiddlers are pure html with a few values that are dynamically replaced.
+
+In the ''header template'' those values are:
+
+* $currentPage - Is replaced with the page number
+* $pageCount - Is replaced with the page count
+
+In the ''footer template'' those values are:
+
+* $currentPage - Is replaced with the page number
+* $pageCount - Is replaced with the page count
+
+In the ''background template'' those values are:
+
+* $currentPage - Is replaced with the page number
+
+In the ''page template'' those values are:
+
+* $title - Is replaced with the tiddler's title
+* $body - Is replaced with the html of the tiddler's content
+
+
+

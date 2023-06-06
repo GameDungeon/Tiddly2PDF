@@ -5,7 +5,7 @@ type: json
 {
     "pdf-footer": {
         "alignment": "right",
-        "color": "#a9a9a9",
+        "color": "#797979",
         "marginRight": 24
     }
 }
