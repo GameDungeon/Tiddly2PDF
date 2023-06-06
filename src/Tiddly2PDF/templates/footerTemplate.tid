@@ -1,4 +1,4 @@
-title: $:/plugins/GameDungeon/templates/footerTemplate
+title: $:/plugins/GameDungeon/Tiddly2PDF/templates/footerTemplate
 type: text/html
 
 <div class="pdf-footer"> $currentPage  </div>

@@ -1,7 +1,7 @@
 {
   "url": "https://gamedungeon.github.io/Tiddly2PDF/",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.1.1",
   "scripts": {
     "reset": "rimraf ./**/node_modules",
     "clean": "rimraf dist",

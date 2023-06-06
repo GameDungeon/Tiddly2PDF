@@ -1,5 +1,5 @@
 created: 20230603202708545
-modified: 20230606005825480
+modified: 20230606014928731
 tags: pdf
 title: Tiddly2PDF Documentation
 type: text/vnd.tiddlywiki
@@ -7,6 +7,8 @@ type: text/vnd.tiddlywiki
 Hello, and welcome to the ''Tiddly2PDF'' documentation. 
 
 As an example of this plugin, and for your convenience, this documentation can be exported as a pdf by clicking the PDF tool in the top right. 
+
+Download the plugin [[here!|https://github.com/GameDungeon/Tiddly2PDF/releases]]
 
 !! ''Configuration''
 

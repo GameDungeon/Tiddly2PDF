@@ -1,4 +1,4 @@
-title: $:/plugins/GameDungeon/templates/pageTemplate
+title: $:/plugins/GameDungeon/Tiddly2PDF/templates/pageTemplate
 type: text/html
 
 <h1>$title</h1>
