@@ -1,0 +1,21 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/fonts
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: Fonts
+list-after: $:/plugins/GameDungeon/Tiddly2PDF/Settings/pageFilter
+
+|Default Font |<$edit-text tiddler="$:/config/Tiddly2PDF/defaultFont" default="" tag="input"/> |
+
+<$button>
+<$action-createtiddler $basetitle="NewFont" $template="$:/plugins/GameDungeon/Tiddly2PDF/templates/fontTemplate" tags="$:/tags/Tiddly2PDF/PDFFont">
+<$action-sendmessage $message="tm-edit-tiddler" $param=<<createTiddler-title>>/>
+</$action-createtiddler>
+Add a Font
+</$button>
+
+
+Installed Fonts:
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/Tiddly2PDF/PDFFont]]">
+
+<$link><$transclude field="caption"/></$link>
+
+</$list>

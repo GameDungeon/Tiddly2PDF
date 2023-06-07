@@ -1,11 +1,8 @@
 import { IWidgetEvent } from 'tiddlywiki';
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
+import { decompressSync, strFromU8, strToU8 } from 'fflate';
 
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-
 import htmlToPdfmake from 'html-to-pdfmake';
 
 const STYLEFILTER = "$:/config/Tiddly2PDF/styleFilter";
@@ -15,6 +12,9 @@ const HEADERTEMPLATEPATH = "$:/config/Tiddly2PDF/headerTemplate";
 const FOOTERTEMPLATEPATH = "$:/config/Tiddly2PDF/footerTemplate";
 const PAGETEMPLATEPATH = "$:/config/Tiddly2PDF/pageTemplate";
 const BACKGROUNDTEMPLATEPATH = "$:/config/Tiddly2PDF/backgroundTemplate";
+const DEFAULTFONT = "$:/config/Tiddly2PDF/defaultFont";
+
+const FONTFILTER = "[all[shadows+tiddlers]tag[$:/tags/Tiddly2PDF/PDFFont]!is[draft]]"
 
 interface docDefinition {
     header: CallableFunction,
@@ -22,7 +22,15 @@ interface docDefinition {
     background: CallableFunction,
     content: any[],
     images: any,
-    styles: any
+    styles: any,
+    defaultStyle: any
+}
+
+interface fontFamily {
+    normal: string,
+    bold: string,
+    italics: string,
+    bolditalics: string
 }
 
 const emptyDefaultStyle: any = {
@@ -78,12 +86,54 @@ class ExportAsPDF extends Widget {
 
         let tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
 
+        let fonts = $tw.wiki.filterTiddlers(FONTFILTER);
+        let defFont = this.getTiddlerContent(DEFAULTFONT);
+
         let breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
 
         let headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
         let footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
         let pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
         let backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
+
+        pdfMake.vfs = {};
+
+        let fontData: any = {} 
+        fonts.forEach((font) => {
+            let fontTid = $tw.wiki.getTiddler(font);
+
+            let normal = strFromU8(decompressSync(strToU8(
+                this.getTiddlerContent((fontTid as any).fields.normal), true
+            )), true);
+
+            let bold = strFromU8(decompressSync(strToU8(
+                this.getTiddlerContent((fontTid as any).fields.bold), true
+            )), true);
+
+            let italic = strFromU8(decompressSync(strToU8(
+                this.getTiddlerContent((fontTid as any).fields.italic), true
+            )), true);
+
+            let italicbold = strFromU8(decompressSync(strToU8(
+                this.getTiddlerContent((fontTid as any).fields.italicbold), true
+            )), true);
+
+            pdfMake.vfs[`${font}-normal`] = normal;
+            pdfMake.vfs[`${font}-bold`] = bold;
+            pdfMake.vfs[`${font}-italic`] = italic;
+            pdfMake.vfs[`${font}-italicbold`] = italicbold;
+
+            let fontFam: fontFamily = {
+                normal: `${font}-normal`,
+                bold: `${font}-bold`,
+                italics: `${font}-italic`,
+                bolditalics: `${font}-italicbold`
+            }
+
+            fontData[(fontTid as any).fields.caption] = fontFam;
+        })
+
+        pdfMake.fonts = fontData;
 
         let headerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
             let currentHeaderHTML = headerHTML
@@ -120,7 +170,10 @@ class ExportAsPDF extends Widget {
             background: backgroundFunction,
             content: [],
             images: {},
-            styles: this.getPDFStyles()
+            styles: this.getPDFStyles(),
+            defaultStyle: {
+                font: defFont
+            }
         };
 
         tiddlers.forEach((tiddler, i) => {
@@ -154,11 +207,9 @@ class ExportAsPDF extends Widget {
             }
         })
 
-        //console.log(dd)
-
         pdfMake.createPdf(<any>dd).download();
 
-        return true; // Action was invoked
+        return true;
     };
 }
 

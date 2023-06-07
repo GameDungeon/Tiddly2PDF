@@ -1,15 +1,6 @@
 {
+  "extends": "@modern-js/tsconfig/base.json",
   "compilerOptions": {
-    "target": "ES2015",
-    "allowJs": true,
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
     "declaration": false,
     "jsx": "preserve",
     "baseUrl": "./",

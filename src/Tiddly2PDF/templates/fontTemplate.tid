@@ -1,0 +1,14 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/templates/fontTemplate
+type: text/vnd.tiddlywiki
+
+<!-- Only change the title, other changes might break some functionality. -->
+
+Font Name: <$edit-text field="caption" default="" size = 50 tag="input"/>
+
+Normal: <$edit-text field="normal" default="" size = 53 tag="input"/> <$font-uploader field="normal"/>
+
+Bold: <$edit-text field="bold" default="" size = 56 tag="input"/> <$font-uploader field="bold"/>
+
+Italic: <$edit-text field="italic" default="" size = 56 tag="input"/> <$font-uploader field="italic"/>
+
+ItalicBold: <$edit-text field="italicbold" default="" size = 52 tag="input"/> <$font-uploader field="italicbold"/>
