@@ -13,6 +13,7 @@ const FOOTERTEMPLATEPATH = "$:/config/Tiddly2PDF/footerTemplate";
 const PAGETEMPLATEPATH = "$:/config/Tiddly2PDF/pageTemplate";
 const BACKGROUNDTEMPLATEPATH = "$:/config/Tiddly2PDF/backgroundTemplate";
 const DEFAULTFONT = "$:/config/Tiddly2PDF/defaultFont";
+const FILENAME = "$:/config/Tiddly2PDF/fileName";
 
 const FONTFILTER = "[all[shadows+tiddlers]tag[$:/tags/Tiddly2PDF/PDFFont]!is[draft]]"
 
@@ -84,17 +85,19 @@ class ExportAsPDF extends Widget {
 
     invokeAction(triggeringWidget: Widget, event: IWidgetEvent) {
 
-        let tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
+        const tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
 
-        let fonts = $tw.wiki.filterTiddlers(FONTFILTER);
-        let defFont = this.getTiddlerContent(DEFAULTFONT);
+        const fonts = $tw.wiki.filterTiddlers(FONTFILTER);
+        const defFont = this.getTiddlerContent(DEFAULTFONT);
 
-        let breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
+        const breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
 
-        let headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
-        let footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
-        let pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
-        let backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
+        const headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
+        const footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
+        const pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
+        const backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
+
+        const fileName = this.getTiddlerContent(FILENAME);
 
         pdfMake.vfs = {};
 
@@ -207,7 +210,7 @@ class ExportAsPDF extends Widget {
             }
         })
 
-        pdfMake.createPdf(<any>dd).download();
+        pdfMake.createPdf(<any>dd).download(fileName);
 
         return true;
     };

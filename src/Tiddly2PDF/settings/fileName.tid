@@ -1,0 +1,6 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/fileName
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: File Name
+list-before:
+
+|File Name |<$edit-text tiddler="$:/config/Tiddly2PDF/fileName" default="" tag="input"/> |

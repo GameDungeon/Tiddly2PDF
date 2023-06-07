@@ -16,6 +16,6 @@ Add a Font
 Installed Fonts:
 <$list filter="[all[shadows+tiddlers]tag[$:/tags/Tiddly2PDF/PDFFont]]">
 
-<$link><$transclude field="caption"/></$link>
+* <$link><$transclude field="caption"/></$link>
 
 </$list>
