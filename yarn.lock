@@ -2017,9 +2017,9 @@ camelcase-css@^2.0.1:
   integrity sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==
 
 caniuse-lite@^1.0.30001464, caniuse-lite@^1.0.30001489:
-  version "1.0.30001495"
-  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001495.tgz#64a0ccef1911a9dcff647115b4430f8eff1ef2d9"
-  integrity sha512-F6x5IEuigtUfU5ZMQK2jsy5JqUUlEFRVZq8bO2a+ysq5K7jD6PPc9YXZj78xDNS3uNchesp1Jw47YXEqr+Viyg==
+  version "1.0.30001497"
+  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001497.tgz#0e5387b98e7dbf9c4f743fb16e92cbf0ca780714"
+  integrity sha512-I4/duVK4wL6rAK/aKZl3HXB4g+lIZvaT4VLAn2rCgJ38jVLb0lv2Xug6QuqmxXFVRJMF74SPPWPJ/1Sdm3vCzw==
 
 chalk@5.2.0:
   version "5.2.0"
@@ -3353,10 +3353,10 @@ html-minifier-terser@^7.1.0:
     relateurl "^0.2.7"
     terser "^5.15.1"
 
-html-to-pdfmake@^2.4.21:
-  version "2.4.21"
-  resolved "https://registry.npmmirror.com/html-to-pdfmake/-/html-to-pdfmake-2.4.21.tgz#2fecbcbe3269be57d37dd789a5b9c764fd7876ae"
-  integrity sha512-SyeOlNJEo2gu31l7/tgWENOeoyIgKDuE78rlaezm5OAIau4a4vkXe5c01TCG1YeAwMvtHfLxuGla3WOXw7jrug==
+html-to-pdfmake@^2.4.22:
+  version "2.4.22"
+  resolved "https://registry.npmmirror.com/html-to-pdfmake/-/html-to-pdfmake-2.4.22.tgz#6fc929e9bc3bea793115ccfd82c8ee28d8e21410"
+  integrity sha512-tzhTPYRlvaHMMRbW/4tlRVAATnKsuhIMhEK9kiB0bQCJHg0BDb/un0N2r9tQSvJWDcWcDUEH94NTYUEfYzE9kA==
 
 human-signals@^4.3.0:
   version "4.3.1"
@@ -4715,9 +4715,9 @@ safe-regex-test@^1.0.0:
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
 sass@*:
-  version "1.63.2"
-  resolved "https://registry.npmmirror.com/sass/-/sass-1.63.2.tgz#75f7d9a8e67d1d5b98a989507f4d98b6067b1f75"
-  integrity sha512-u56TU0AIFqMtauKl/OJ1AeFsXqRHkgO7nCWmHaDwfxDo9GUMSqBA4NEh6GMuh1CYVM7zuROYtZrHzPc2ixK+ww==
+  version "1.63.3"
+  resolved "https://registry.npmmirror.com/sass/-/sass-1.63.3.tgz#527746aa43bf2e4eac1ab424f67f6f18a081061a"
+  integrity sha512-ySdXN+DVpfwq49jG1+hmtDslYqpS7SkOR5GpF6o2bmb1RL/xS+wvPmegMvMywyfsmAV6p7TgwXYGrCZIFFbAHg==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
