@@ -1,6 +1,6 @@
 created: 20230607192000566
 list-after: Fonts
-modified: 20230607214257898
+modified: 20230607221046041
 tags: pdf
 title: Templates
 type: text/vnd.tiddlywiki
@@ -9,19 +9,19 @@ The template tiddlers are pure html with a few values that are dynamically repla
 
 In the ''header template'' those values are:
 
-* $currentPage - Is replaced with the page number
-* $pageCount - Is replaced with the page count
+* ''$currentPage'' - Is replaced with the page number
+* ''$pageCount'' - Is replaced with the page count
 
 In the ''footer template'' those values are:
 
-* $currentPage - Is replaced with the page number
-* $pageCount - Is replaced with the page count
+* ''$currentPage'' - Is replaced with the page number
+* ''$pageCount'' - Is replaced with the page count
 
 In the ''background template'' those values are:
 
-* $currentPage - Is replaced with the page number
+* ''$currentPage'' - Is replaced with the page number
 
 In the ''page template'' those values are:
 
-* $title - Is replaced with the tiddler's title
-* $body - Is replaced with the html of the tiddler's content
+* ''$title'' - Is replaced with the tiddler's title
+* ''$body'' - Is replaced with the html of the tiddler's content

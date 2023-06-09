@@ -1,0 +1,6 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/templates/fontCascade
+list-before: $:/config/ViewTemplateBodyFilters/default
+tags: $:/tags/ViewTemplateBodyFilter
+type: text/vnd.tiddlywiki
+
+[tag[$:/tags/Tiddly2PDF/PDFFont]then[$:/plugins/GameDungeon/Tiddly2PDF/templates/fontViewTemplate]]

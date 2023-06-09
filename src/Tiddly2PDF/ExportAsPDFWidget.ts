@@ -2,7 +2,10 @@ import { IWidgetEvent } from 'tiddlywiki';
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 import { decompressSync, strFromU8, strToU8 } from 'fflate';
 
+// @ts-ignore
 import pdfMake from "pdfmake/build/pdfmake";
+
+// @ts-ignore
 import htmlToPdfmake from 'html-to-pdfmake';
 
 const STYLEFILTER = "$:/config/Tiddly2PDF/styleFilter";

@@ -1,6 +1,6 @@
 created: 20230607213903488
 list-after: Styling
-modified: 20230607215615606
+modified: 20230609014226419
 tags: pdf
 title: Fonts
 type: text/vnd.tiddlywiki
@@ -11,9 +11,9 @@ The default font option sets what font elements should use by default. Using the
 
 Please note that due to how browsers work, fonts have to be imported directly into the tiddly wiki and cannot just be on your computer.
 
-!! Custom Fonts
+!! ''Custom Fonts''
 
-To add a custom font go into the settings and hit "Add a Font" This will make a new tiddler appear. ''Do not'' edit anything about this tiddler except the title (//unless you know what you are doing//).
+To add a custom font go into the settings and hit "Add a Font" This will make a new tiddler appear. 
 
 Fill out the font name section. This is the name you will use when setting a "Default Font" or setting a font with the styles. Then fill in the four boxes with the appropriate TTF files. If your font does not have bold & italic styles, import the standard version in again. This will not create duplicate font tiddlers. 
 
