@@ -179,14 +179,15 @@ class ExportAsPDF extends Widget {
             styles: this.getPDFStyles(),
             defaultStyle: {
                 font: defFont,
-                fontSize: 13
+                fontSize: 14
             }
         };
 
-        tiddlers.forEach((tiddler, i) => {
+        tiddlers.forEach((tiddlerTitle, i) => {
             let options = {};
 
-            let parser = $tw.wiki.parseTiddler(tiddler, options)
+            let tiddler = $tw.wiki.getTiddler(tiddlerTitle);
+            let parser = $tw.wiki.parseTiddler(tiddlerTitle, options)
             let widgetNode = $tw.wiki.makeWidget(parser, options);
 
             let container = $tw.fakeDocument.createElement("div");
@@ -194,9 +195,14 @@ class ExportAsPDF extends Widget {
             widgetNode.render(container, null);
 
             let bodyHtml = container.innerHTML;
+            
+            let title = tiddlerTitle;
+            if((tiddler as any).getFieldString("pdf-title") == "hide") {
+                title = "";
+            }
 
             let currentPageHTML = pageHTML
-                .replaceAll("$title", tiddler)
+                .replaceAll("$title", title)
                 .replaceAll("$body", bodyHtml)
 
             let html: { content: any[], images: string[] } = <any>htmlToPdfmake(currentPageHTML, {
