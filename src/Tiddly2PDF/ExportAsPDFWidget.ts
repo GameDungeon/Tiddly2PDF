@@ -178,7 +178,8 @@ class ExportAsPDF extends Widget {
             images: {},
             styles: this.getPDFStyles(),
             defaultStyle: {
-                font: defFont
+                font: defFont,
+                fontSize: 14
             }
         };
 

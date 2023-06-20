@@ -27,12 +27,12 @@ type: json
         "marginBottom": 5
     },
     "html-h2": {
-        "fontSize": 22, 
+        "fontSize": 20, 
         "bold": true, 
         "marginBottom": 5
     },
     "html-h3": {
-        "fontSize": 20, 
+        "fontSize": 16, 
         "bold": true, 
         "marginBottom": 5
     },
@@ -42,12 +42,12 @@ type: json
         "marginBottom": 5
     },
     "html-h5": {
-        "fontSize": 16, 
+        "fontSize": 14, 
         "bold": true, 
         "marginBottom": 5
     },
     "html-h6": {
-        "fontSize": 14, 
+        "fontSize": 12, 
         "bold": true, 
         "marginBottom": 5
     },

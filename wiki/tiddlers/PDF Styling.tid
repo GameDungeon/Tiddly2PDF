@@ -1,8 +1,8 @@
 created: 20230607192040212
 list-after: Tiddly2PDF Documentation
-modified: 20230620173302561
+modified: 20230620175811289
 tags: pdf
-title: Styling
+title: PDF Styling
 type: text/vnd.tiddlywiki
 
 PDFs are styled with a CSS-like system used by PDFMake. Stylesheet tiddlers are supposed to be JSON tiddlers. 
@@ -28,7 +28,7 @@ Example:
 
 <br>
 
-!! Built In Styles
+!!! Built In Styles:
 * Default Styles for each HTML element (named html-tag)
 * bold - Makes text ''bold''
 * italic - Makes text //italic//
