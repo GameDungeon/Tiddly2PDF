@@ -1,6 +1,6 @@
 created: 20230607192040212
 list-after: Tiddly2PDF Documentation
-modified: 20230620172913310
+modified: 20230620173302561
 tags: pdf
 title: Styling
 type: text/vnd.tiddlywiki
@@ -25,6 +25,8 @@ Example:
     }
 }
 ```
+
+<br>
 
 !! Built In Styles
 * Default Styles for each HTML element (named html-tag)
