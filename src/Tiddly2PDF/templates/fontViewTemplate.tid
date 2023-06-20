@@ -11,4 +11,4 @@ Bold: <$edit-text field="bold" default="" size = 56 tag="input"/> <$font-uploade
 
 Italic: <$edit-text field="italic" default="" size = 56 tag="input"/> <$font-uploader field="italic"/>
 
-ItalicBold: <$edit-text field="italicbold" default="" size = 52 tag="input"/> <$font-uploader field="italicbold"/>
+Bold Italic: <$edit-text field="italicbold" default="" size = 51 tag="input"/> <$font-uploader field="italicbold"/>

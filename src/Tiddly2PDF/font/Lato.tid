@@ -1,8 +1,0 @@
-bold: $:/fonts/Lato-Bold.ttf
-caption: Lato
-italic: $:/fonts/Lato-Italic.ttf
-italicbold: $:/fonts/Lato-BoldItalic.ttf
-normal: $:/fonts/Lato-Regular.ttf
-tags: $:/tags/Tiddly2PDF/PDFFont
-title: $:/fonts/Lato
-type: text/vnd.tiddlywiki

@@ -1,11 +1,11 @@
 created: 20230607213903488
 list-after: Styling
-modified: 20230609014226419
+modified: 20230620184928741
 tags: pdf
 title: Fonts
 type: text/vnd.tiddlywiki
 
-For both aesthetic and size reasons, the only font that comes with this plugin by default is Lato. (Expect lite versions with no fonts pre-installed in the future to be available.)
+For both size reasons the only font that comes with this plugin by default is PTSerif. (Expect lite versions with no fonts pre-installed in the future to be available.)
 
 The default font option sets what font elements should use by default. Using the styling system you can change the font of elements to whatever fonts you have installed. In the settings you should see a list of available fonts.
 

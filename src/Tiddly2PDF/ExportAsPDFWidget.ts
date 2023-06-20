@@ -179,7 +179,7 @@ class ExportAsPDF extends Widget {
             styles: this.getPDFStyles(),
             defaultStyle: {
                 font: defFont,
-                fontSize: 14
+                fontSize: 13
             }
         };
 
