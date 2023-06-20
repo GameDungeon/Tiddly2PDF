@@ -73,5 +73,14 @@ type: json
     "html-th": {
         "bold": true, 
         "fillColor": "#EEEEEE"
+    },
+    "bold": {
+        "bold": true
+    },
+    "italic" {
+        "italics": true
+    },
+    "center": {
+        "alignment": "center"
     }
   }

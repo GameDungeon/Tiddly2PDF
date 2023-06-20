@@ -1,6 +1,6 @@
 created: 20230607192040212
 list-after: Tiddly2PDF Documentation
-modified: 20230609214139348
+modified: 20230620172913310
 tags: pdf
 title: Styling
 type: text/vnd.tiddlywiki
@@ -11,11 +11,13 @@ The PDF Stylesheets option is a filter to grab stylesheets. By default it is set
 
 The [[available styling options|https://pdfmake.github.io/docs/0.1/document-definition-object/styling/#style-properties]]  are listed here. (''These are different then the basic CSS ones, and many CSS ones are not supported'')
 
+Styles can be applied by adding a class matching a style key to an element. 
+
 Example:
 
 ```
 {
-    "html-class": {
+    "html-ele": {
         "bold": true
     },
     "other-class": {
@@ -23,3 +25,9 @@ Example:
     }
 }
 ```
+
+!! Built In Styles
+* Default Styles for each HTML element (named html-tag)
+* bold - Makes text ''bold''
+* italic - Makes text //italic//
+* center - Centers and element on the PDF
