@@ -9,7 +9,7 @@
         "list": "readme credits",
         "dependents": "",
         "type": "application/json",
-        "Modern.TiddlyDev#SHA256-Hashed": "5fe6b94a72e7fb4f5f1554e0b4ac53351a356d83ea3511719795525143c509e0",
+        "Modern.TiddlyDev#SHA256-Hashed": "1393e6b87f0745f74fc887ac0cf448c0c6b1f3b26f4bbbc4c09baf6820b454de",
         "readme": "! Tiddly2PDF\n\nExport Tiddlers as Styled PDFs",
         "requires-reload": "yes"
     }
