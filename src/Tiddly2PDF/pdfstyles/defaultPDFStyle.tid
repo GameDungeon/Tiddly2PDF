@@ -77,7 +77,7 @@ type: json
     "bold": {
         "bold": true
     },
-    "italic" {
+    "italic": {
         "italics": true
     },
     "center": {
