@@ -82,5 +82,8 @@ type: json
     },
     "center": {
         "alignment": "center"
+    },
+    "tc-inline-style": {
+        "background": "#ffff78"
     }
-  }
+}

@@ -1,6 +1,6 @@
 created: 20230607192040212
 list-after: Tiddly2PDF Documentation
-modified: 20230620175811289
+modified: 20230629193355431
 tags: pdf
 title: PDF Styling
 type: text/vnd.tiddlywiki
@@ -33,3 +33,4 @@ Example:
 * bold - Makes text ''bold''
 * italic - Makes text //italic//
 * center - Centers and element on the PDF
+* tc-inline-style - This makes the built in text highlighting work
