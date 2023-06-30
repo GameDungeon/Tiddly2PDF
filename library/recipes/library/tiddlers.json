@@ -5,11 +5,11 @@
         "author": "GameDungeon",
         "description": "Export Tiddlers as Styled PDFs",
         "plugin-type": "plugin",
-        "version": "0.1.3",
+        "version": "0.1.4",
         "list": "readme credits",
         "dependents": "",
         "type": "application/json",
-        "Modern.TiddlyDev#SHA256-Hashed": "ee591f5f060c207c10ad630c65d2f4df97a0f829e70c487111f833a01930f5a0",
+        "Modern.TiddlyDev#SHA256-Hashed": "3cb8fb3774960791ebcf177e018d105d7624c7416e1d060112a575a5e3f6e6f3",
         "readme": "! Tiddly2PDF\n\nExport Tiddlers as Styled PDFs",
         "requires-reload": "yes"
     }
