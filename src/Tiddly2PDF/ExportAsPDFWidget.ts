@@ -86,8 +86,7 @@ class ExportAsPDF extends Widget {
         return Object.assign(...styleJSONS);
     }
 
-    invokeAction(triggeringWidget: Widget, event: IWidgetEvent) {
-
+    async createPDF() {
         const tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
 
         const fonts = $tw.wiki.filterTiddlers(FONTFILTER);
@@ -201,8 +200,11 @@ class ExportAsPDF extends Widget {
                 title = "";
             }
 
+            let subtitle = (tiddler as any).getFieldString("pdf-subtitle");
+
             let currentPageHTML = pageHTML
                 .replaceAll("$title", title)
+                .replaceAll("$subtitle", subtitle)
                 .replaceAll("$body", bodyHtml)
 
             let html: { content: any[], images: string[] } = <any>htmlToPdfmake(currentPageHTML, {
@@ -220,7 +222,24 @@ class ExportAsPDF extends Widget {
             }
         })
 
+        for (const [key, value] of Object.entries(dd.images)) {
+            var srcImg = new Image();
+            srcImg.src = (value as string);
+
+            await srcImg.decode();
+
+            const canvas = document.createElement('canvas');
+            canvas.width = srcImg.width;
+            canvas.height = srcImg.height;
+            canvas.getContext('2d')?.drawImage(srcImg, 0, 0);
+            dd.images[key] = canvas.toDataURL("image/png", 0.7);
+        }
+
         pdfMake.createPdf(<any>dd).download(fileName);
+    }
+
+    invokeAction(triggeringWidget: Widget, event: IWidgetEvent) {
+        this.createPDF();
 
         return true;
     };

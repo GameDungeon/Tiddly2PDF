@@ -1,6 +1,6 @@
 created: 20230607192000566
 list-after: Fonts
-modified: 20230607221046041
+modified: 20230630175651407
 tags: pdf
 title: Templates
 type: text/vnd.tiddlywiki
@@ -24,4 +24,5 @@ In the ''background template'' those values are:
 In the ''page template'' those values are:
 
 * ''$title'' - Is replaced with the tiddler's title
+* ''$subtitle'' - Is replaced with the tiddler's pdf-subtitle page field.
 * ''$body'' - Is replaced with the html of the tiddler's content

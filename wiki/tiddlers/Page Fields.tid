@@ -1,6 +1,6 @@
 created: 20230620185230679
 list-after: PDF Styling
-modified: 20230620193246071
+modified: 20230630175202940
 tags: pdf
 title: Page Fields
 type: text/vnd.tiddlywiki
@@ -10,4 +10,5 @@ Each tiddler being used as a page can contain a variety of fields that modify th
 These fields are:
 
 * pdf-title:
-** hide - this hides the tiddler title from display. 
+** hide - this hides the tiddler title from display.
+* pdf-subtitle - This is used as a template variable
