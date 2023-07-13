@@ -1,11 +1,8 @@
 title: $:/plugins/GameDungeon/Tiddly2PDF/pdfstyles/defaultFooterStyle
 tags: $:/tags/Tiddly2PDF/pdfStyle
-type: json
 
-{
-    "pdf-footer": {
-        "alignment": "right",
-        "color": "#797979",
-        "marginRight": 24
-    }
+.pdf-footer: {
+    alignment: right;
+    color: #797979;
+    marginRight: 24;
 }

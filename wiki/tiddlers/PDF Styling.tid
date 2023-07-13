@@ -1,28 +1,26 @@
 created: 20230607192040212
 list-after: Tiddly2PDF Documentation
-modified: 20230630175548101
+modified: 20230713221359781
 tags: pdf
 title: PDF Styling
 type: text/vnd.tiddlywiki
 
-PDFs are styled with a CSS-like system used by PDFMake. Stylesheet tiddlers are supposed to be JSON tiddlers. 
-
+PDFs are styled with a CSS-like system used by PDFMake. Stylesheet tiddlers are written like css, but many of the properties are different. 
 The PDF Stylesheets option is a filter to grab stylesheets. By default it is set to get all tiddlers tagged with "$:/tags/Tiddly2PDF/pdfStyle"
 
 The [[available styling options|https://pdfmake.github.io/docs/0.1/document-definition-object/styling/#style-properties]]  are listed here. (''These are different then the basic CSS ones, and many CSS ones are not supported'')
 
-Styles can be applied by adding a class matching a style key to an element. 
+Styles can be applied by adding a class matching a style key to an element. Styles referring to html elements have a html- prefix, while styles referring to classes do not. 
 
 Example:
 
-```
-{
-    "html-ele": {
-        "bold": true
-    },
-    "other-class": {
-        "fontSize": 26
-    }
+```css
+.html-ele, .bold: {
+    bold: true
+}
+
+.other-class: {
+    fontSize: 26
 }
 ```
 

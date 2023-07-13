@@ -2,6 +2,8 @@ import { IWidgetEvent } from 'tiddlywiki';
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 import { decompressSync, strFromU8, strToU8 } from 'fflate';
 
+import css from "css";
+
 // @ts-ignore
 import pdfMake from "pdfmake/build/pdfmake";
 
@@ -77,13 +79,39 @@ class ExportAsPDF extends Widget {
     getPDFStyles() {
         let styleTiddlers = this.getTidsFromFilterTid(STYLEFILTER);
 
-        let styleJSONS: any[] = [];
+        let cssString: string = "";
         styleTiddlers.forEach(tiddler => {
-            styleJSONS.push(JSON.parse(this.getTiddlerContent(tiddler)))
+            cssString += "\n" + this.getTiddlerContent(tiddler)
         });
 
-        // @ts-ignore
-        return Object.assign(...styleJSONS);
+        let styles: css.Stylesheet = css.parse(cssString);
+
+        var parsedStyles: any = {};
+
+        styles.stylesheet!.rules.forEach((rule: css.Rule) => {
+            if(rule['type'] !== 'rule')
+                return;
+
+            rule.selectors!.forEach(selectorOrg => {
+                let selector = selectorOrg.charAt(0) == '.' ? selectorOrg.substring(1) : selectorOrg;
+                selector = selector.charAt(selector.length-1) == ':' ? selector.substring(0, selector.length-1) : selector;
+                rule.declarations!.forEach((declaration: css.Declaration) => {
+                    if(parsedStyles[selector] === undefined)
+                        parsedStyles[selector] = {}
+
+
+                    let val = declaration.value;
+                    try {
+                        val = JSON.parse(declaration.value!);
+                    } catch {
+                    }
+
+                    parsedStyles[selector][declaration.property!] = val;
+                });
+            });
+        });
+
+        return parsedStyles;
     }
 
     async createPDF() {
@@ -193,7 +221,7 @@ class ExportAsPDF extends Widget {
 
             widgetNode.render(container, null);
 
-            let bodyHtml = container.innerHTML;
+            let bodyHtml = container.innerHTML; 
             
             let title = tiddlerTitle;
             if((tiddler as any).getFieldString("pdf-title") == "hide") {

@@ -1,7 +1,7 @@
 {
   "url": "https://gamedungeon.github.io/Tiddly2PDF/",
   "license": "MIT",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "scripts": {
     "reset": "rimraf ./**/node_modules",
     "clean": "rimraf dist",
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@modern-js/eslint-config": "^2.22.1",
     "@modern-js/tsconfig": "^2.22.1",
+    "@types/css": "^0.0.33",
     "@types/html-to-pdfmake": "^2.4.1",
     "@types/node": "^20.2.5",
     "@types/pdfmake": "^0.2.2",
@@ -47,6 +48,7 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
+    "css": "^3.0.0",
     "fflate": "^0.8.0",
     "html-to-pdfmake": "^2.4.22",
     "pdfmake": "^0.2.7",

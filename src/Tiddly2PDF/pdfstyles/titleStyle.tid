@@ -2,8 +2,8 @@ title: $:/plugins/GameDungeon/Tiddly2PDF/pdfstyles/titleStyle
 tags: $:/tags/Tiddly2PDF/pdfStyle
 type: json
 
-{
-    "pdf-title": {
-        "alignment": "center"
-    }
+
+.pdf-title: {
+    alignment: center
 }
+

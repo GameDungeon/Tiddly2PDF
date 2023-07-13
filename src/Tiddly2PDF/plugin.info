@@ -4,7 +4,7 @@
   "author": "GameDungeon",
   "description": "Export Tiddlers as Styled PDFs",
   "plugin-type": "plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "list": [
     "readme",
     "credits"
