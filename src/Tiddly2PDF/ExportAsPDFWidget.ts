@@ -252,6 +252,7 @@ class ExportAsPDF extends Widget {
 
         for (const [key, value] of Object.entries(dd.images)) {
             var srcImg = new Image();
+            srcImg.crossOrigin = "anonymous";
             srcImg.src = (value as string);
 
             await srcImg.decode();
@@ -259,6 +260,7 @@ class ExportAsPDF extends Widget {
             const canvas = document.createElement('canvas');
             canvas.width = srcImg.width;
             canvas.height = srcImg.height;
+
             canvas.getContext('2d')?.drawImage(srcImg, 0, 0);
             dd.images[key] = canvas.toDataURL("image/png", 0.7);
         }
