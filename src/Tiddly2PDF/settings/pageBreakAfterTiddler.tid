@@ -3,4 +3,4 @@ tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
 caption: Insert Page Break after each Tiddler
 list-after: $:/plugins/GameDungeon/Tiddly2PDF/Settings/pageFilter
 
-<$checkbox tiddler="$:/config/Tiddly2PDF/pageBreakAfterTiddler" field="text" checked="true" unchecked="false" default="true"> <$link to="$:/config/codemirror/smartIndent">Insert Page Break after tiddler</$link> </$checkbox>
+<$checkbox tiddler="$:/config/Tiddly2PDF/pageBreakAfterTiddler" field="text" checked="true" unchecked="false" default="true">Insert Page Break after tiddler </$checkbox>

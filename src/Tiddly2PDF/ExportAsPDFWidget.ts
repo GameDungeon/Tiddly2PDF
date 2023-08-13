@@ -210,6 +210,8 @@ class ExportAsPDF extends Widget {
             }
         };
 
+        let tiddlerIds: string[] = [];
+
         tiddlers.forEach((tiddlerTitle, i) => {
             let options = {};
 
@@ -235,10 +237,16 @@ class ExportAsPDF extends Widget {
                 .replaceAll("$subtitle", subtitle)
                 .replaceAll("$body", bodyHtml)
 
+
             let html: { content: any[], images: string[] } = <any>htmlToPdfmake(currentPageHTML, {
                 imagesByReference: true,
                 defaultStyles: emptyDefaultStyle,
             })
+
+            let tiddlerId = (html.content[0].text as string).toLowerCase().replace(" ", "-");
+
+            html.content[0].id = tiddlerId;
+            tiddlerIds.push(tiddlerId);
 
             if (breakPages && i < tiddlers.length - 1) {
                 html.content[html.content.length - 1].pageBreak = 'after';

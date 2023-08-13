@@ -1,0 +1,6 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/tableOfContents
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: Activate tableOfContents
+list-after: $:/plugins/GameDungeon/Tiddly2PDF/Settings/fonts
+
+<$checkbox tiddler="$:/config/Tiddly2PDF/tableOfContents" field="text" checked="true" unchecked="false" default="true">Activate tableOfContents </$checkbox>

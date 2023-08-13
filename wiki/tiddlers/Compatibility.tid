@@ -1,9 +1,9 @@
 created: 20230713223907367
-modified: 20230713224549695
+modified: 20230813194708026
 tags: pdf
 title: Compatibility
 type: text/vnd.tiddlywiki
 
 ! highlight.js
 
-Grab a style sheet from [[here|https://github.com/highlightjs/highlight.js/tree/main/src/styles]], and use it like any other Tiddly2PDF style. 
+Grab a style sheet from [[here|https://github.com/highlightjs/highlight.js/tree/main/src/styles]], and use it like any other Tiddly2PDF style. It may have to be edited slightly to look right. 
