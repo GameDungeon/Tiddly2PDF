@@ -218,6 +218,7 @@ class ExportAsPDF extends Widget {
             let tiddler = $tw.wiki.getTiddler(tiddlerTitle);
             let parser = $tw.wiki.parseTiddler(tiddlerTitle, options)
             let widgetNode = $tw.wiki.makeWidget(parser, options);
+            let fields = (tiddler as any).getFieldStrings();
 
             let container = $tw.fakeDocument.createElement("div");
 
@@ -230,12 +231,13 @@ class ExportAsPDF extends Widget {
                 title = "";
             }
 
-            let subtitle = (tiddler as any).getFieldString("pdf-subtitle");
+            let currentPageHTML = pageHTML.replaceAll("$title", title);
+            for (let key in fields) {
+                currentPageHTML = currentPageHTML.replaceAll("$" + key, fields[key]);
+            }
+            currentPageHTML.replaceAll("$body", bodyHtml);
 
-            let currentPageHTML = pageHTML
-                .replaceAll("$title", title)
-                .replaceAll("$subtitle", subtitle)
-                .replaceAll("$body", bodyHtml)
+            console.log(currentPageHTML);
 
 
             let html: { content: any[], images: string[] } = <any>htmlToPdfmake(currentPageHTML, {

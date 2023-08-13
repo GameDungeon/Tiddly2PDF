@@ -1,11 +1,13 @@
 created: 20230607192000566
 list-after: Fonts
-modified: 20230630175651407
+modified: 20230813211717660
 tags: pdf
 title: Templates
 type: text/vnd.tiddlywiki
 
-The template tiddlers are pure html with a few values that are dynamically replaced. These are currently very limited, expect a major expansion in the future. 
+The template tiddlers are pure html with a few values that are dynamically replaced. 
+
+''All fields'' can be used as template values when used in the format "$field". These will be replaced with there corresponding field value. These are just additional non-field template values. 
 
 In the ''header template'' those values are:
 
@@ -24,5 +26,4 @@ In the ''background template'' those values are:
 In the ''page template'' those values are:
 
 * ''$title'' - Is replaced with the tiddler's title
-* ''$subtitle'' - Is replaced with the tiddler's pdf-subtitle page field.
 * ''$body'' - Is replaced with the html of the tiddler's content
