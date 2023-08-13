@@ -1,0 +1,6 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/templates/tableOfContentsTemplate
+type: text/html
+
+<h1 class = "pdf-title">Table of Contents</h1>
+
+<table>$toc-lines</table>

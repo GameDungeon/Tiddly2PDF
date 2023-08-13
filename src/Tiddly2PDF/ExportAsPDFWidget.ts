@@ -13,10 +13,13 @@ import htmlToPdfmake from 'html-to-pdfmake';
 const STYLEFILTER = "$:/config/Tiddly2PDF/styleFilter";
 const PAGEFILTER = "$:/config/Tiddly2PDF/pageFilter";
 const PAGEBREAK = "$:/config/Tiddly2PDF/pageBreakAfterTiddler";
+const TOC = "$:/config/Tiddly2PDF/tableOfContents";
 const HEADERTEMPLATEPATH = "$:/config/Tiddly2PDF/headerTemplate";
 const FOOTERTEMPLATEPATH = "$:/config/Tiddly2PDF/footerTemplate";
 const PAGETEMPLATEPATH = "$:/config/Tiddly2PDF/pageTemplate";
 const BACKGROUNDTEMPLATEPATH = "$:/config/Tiddly2PDF/backgroundTemplate";
+const TOCTEMPLATEPATH = "$:/config/Tiddly2PDF/tableOfContentsTemplate";
+const TOCLINETEMPLATEPATH = "$:/config/Tiddly2PDF/tableOfContentsLineTemplate";
 const DEFAULTFONT = "$:/config/Tiddly2PDF/defaultFont";
 const FILENAME = "$:/config/Tiddly2PDF/fileName";
 
@@ -121,11 +124,14 @@ class ExportAsPDF extends Widget {
         const defFont = this.getTiddlerContent(DEFAULTFONT);
 
         const breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
+        const addToc = (this.getTiddlerContent(TOC) === "true") ? true : false;
 
         const headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
         const footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
         const pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
         const backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
+        const tocHTML = this.getTiddlerContent(this.getTiddlerContent(TOCTEMPLATEPATH));
+        const tocLineHTML = this.getTiddlerContent(this.getTiddlerContent(TOCLINETEMPLATEPATH));
 
         const fileName = this.getTiddlerContent(FILENAME);
 
@@ -235,10 +241,7 @@ class ExportAsPDF extends Widget {
             for (let key in fields) {
                 currentPageHTML = currentPageHTML.replaceAll("$" + key, fields[key]);
             }
-            currentPageHTML.replaceAll("$body", bodyHtml);
-
-            console.log(currentPageHTML);
-
+            currentPageHTML = currentPageHTML.replaceAll("$body", bodyHtml);
 
             let html: { content: any[], images: string[] } = <any>htmlToPdfmake(currentPageHTML, {
                 imagesByReference: true,
@@ -258,10 +261,40 @@ class ExportAsPDF extends Widget {
             if (Object.keys(html.images).length !== 0) {
                 Object.assign(dd.images, html.images);
             }
-        })
+        });
+
+        if(addToc) {
+            let tocAddedHTML = "";
+            tiddlers.forEach((tiddlerTitle, i) => {
+                let tiddler = $tw.wiki.getTiddler(tiddlerTitle);
+                let fields = (tiddler as any).getFieldStrings();
+
+                let currentLineHTML = tocLineHTML;
+                for (let key in fields) {
+                    currentLineHTML = currentLineHTML.replaceAll("$" + key, fields[key]);
+                }
+                currentLineHTML = currentLineHTML.replaceAll("$id", tiddlerIds[i]);
+
+                tocAddedHTML += currentLineHTML;
+            })
+
+            tocAddedHTML = tocHTML.replaceAll("$toc-lines", tocAddedHTML);
+
+            let html: { content: any[], images: string[] } = <any>htmlToPdfmake(tocAddedHTML, {
+                imagesByReference: true,
+                defaultStyles: emptyDefaultStyle,
+            })
+            
+            html.content[html.content.length - 1].pageBreak = 'after';
+
+            dd.content.unshift(...html.content)
+            if (Object.keys(html.images).length !== 0) {
+                Object.assign(dd.images, html.images);
+            }
+        };
 
         for (const [key, value] of Object.entries(dd.images)) {
-            var srcImg = new Image();
+            let srcImg = new Image();
             srcImg.crossOrigin = "anonymous";
             srcImg.src = (value as string);
 

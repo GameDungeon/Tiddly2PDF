@@ -1,0 +1,8 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/templates/tableOfContentsLineTemplate
+type: text/html
+
+<tr>
+  <th>$title</th>
+  <th>$id</th>
+  <th>$created</th>
+</tr>

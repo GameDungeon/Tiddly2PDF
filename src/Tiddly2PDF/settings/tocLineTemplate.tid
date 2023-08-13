@@ -1,0 +1,6 @@
+title: $:/plugins/GameDungeon/Tiddly2PDF/Settings/tableOfContentsLineTemplate
+tags: $:/tags/ControlPanel/Settings/Tiddly2PDF
+caption: TableOfContentsLine Template
+list-after: $:/plugins/GameDungeon/Tiddly2PDF/Settings/tableOfContentsTemplate
+
+|TableOfContents Line Template |<$edit-text tiddler="$:/config/Tiddly2PDF/tableOfContentsLineTemplate" default="" tag="input"/> |

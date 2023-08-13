@@ -1,11 +1,11 @@
 created: 20230620185230679
 list-after: PDF Styling
-modified: 20230813211634066
+modified: 20230813212716903
 tags: pdf
 title: Page Fields
 type: text/vnd.tiddlywiki
 
-Each tiddler being used as a page can contain a variety of fields that modify the look of that page. All fields on a page can be used as [[template values|Templates]].
+Each tiddler being used as a page can contain a variety of fields that modify the look of that page. All fields on a page can be used as [[template values|Templates]] in specific templates.
 
 These fields are:
 

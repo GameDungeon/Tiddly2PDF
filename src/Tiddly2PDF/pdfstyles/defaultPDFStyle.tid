@@ -108,3 +108,13 @@ list-before:
 .tc-inline-style: {
     background: #ffff78;
 }
+
+.pdf-footer: {
+    alignment: right;
+    color: #797979;
+    marginRight: 24;
+}
+
+.pdf-title: {
+    alignment: center
+}

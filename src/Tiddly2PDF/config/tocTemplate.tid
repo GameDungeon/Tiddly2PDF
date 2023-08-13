@@ -1,0 +1,3 @@
+title: $:/config/Tiddly2PDF/tableOfContentsTemplate
+type: string
+text: $:/plugins/GameDungeon/Tiddly2PDF/templates/tableOfContentsTemplate
