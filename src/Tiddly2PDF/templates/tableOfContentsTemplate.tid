@@ -3,4 +3,10 @@ type: text/html
 
 <h1 class = "pdf-title">Table of Contents</h1>
 
-<table>$toc-lines</table>
+<table class = "toc" data-pdfmake="{'widths':['*', 'auto'], 'heights':'auto', 'layout': 'lightHorizontalLines'}">
+    <tr>
+      <th>Title</th>
+      <th class="center">Number</th>
+    </tr>
+    $toc-lines
+</table>

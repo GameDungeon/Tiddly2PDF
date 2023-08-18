@@ -9,6 +9,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 
 // @ts-ignore
 import htmlToPdfmake from 'html-to-pdfmake';
+import { AnyCnameRecord } from 'dns';
 
 const STYLEFILTER = "$:/config/Tiddly2PDF/styleFilter";
 const PAGEFILTER = "$:/config/Tiddly2PDF/pageFilter";
@@ -28,7 +29,7 @@ const FONTFILTER = "[all[shadows+tiddlers]tag[$:/tags/Tiddly2PDF/PDFFont]!is[dra
 interface docDefinition {
     header: CallableFunction,
     footer: CallableFunction,
-    background: CallableFunction,
+    background?: CallableFunction,
     content: any[],
     images: any,
     styles: any,
@@ -40,6 +41,12 @@ interface fontFamily {
     bold: string,
     italics: string,
     bolditalics: string
+}
+
+interface pageGroup {
+    GroupName: string,     
+    GroupPageStart: number,
+    GroupPageEnd: number
 }
 
 const emptyDefaultStyle: any = {
@@ -77,6 +84,15 @@ class ExportAsPDF extends Widget {
 
     getTidsFromFilterTid(path: string): string[] {
         return $tw.wiki.filterTiddlers(this.getTiddlerContent(path));
+    }
+
+    getGroupFromPage(groups: pageGroup[], i: number): pageGroup | undefined {
+        for (const group of groups) {
+            if (i >= group.GroupPageStart && group.GroupPageEnd >= i) {
+              return group;
+            }
+        }
+        return undefined;
     }
 
     getPDFStyles() {
@@ -117,23 +133,8 @@ class ExportAsPDF extends Widget {
         return parsedStyles;
     }
 
-    async createPDF() {
-        const tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
-
+    loadFonts() {
         const fonts = $tw.wiki.filterTiddlers(FONTFILTER);
-        const defFont = this.getTiddlerContent(DEFAULTFONT);
-
-        const breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
-        const addToc = (this.getTiddlerContent(TOC) === "true") ? true : false;
-
-        const headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
-        const footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
-        const pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
-        const backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
-        const tocHTML = this.getTiddlerContent(this.getTiddlerContent(TOCTEMPLATEPATH));
-        const tocLineHTML = this.getTiddlerContent(this.getTiddlerContent(TOCLINETEMPLATEPATH));
-
-        const fileName = this.getTiddlerContent(FILENAME);
 
         pdfMake.vfs = {};
 
@@ -173,40 +174,77 @@ class ExportAsPDF extends Widget {
         })
 
         pdfMake.fonts = fontData;
+    }
 
-        let headerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
-            let currentHeaderHTML = headerHTML
-                .replaceAll("$currentPage", currentPage.toString())
-                .replaceAll("$pageCount",   pageCount.toString());
-     
-            return htmlToPdfmake(currentHeaderHTML, {
-                defaultStyles: emptyDefaultStyle,
-            })
+    generateTOC(tiddlers: any[], groups: pageGroup[]): any {
+        const tocHTML = this.getTiddlerContent(this.getTiddlerContent(TOCTEMPLATEPATH));
+        const tocLineHTML = this.getTiddlerContent(this.getTiddlerContent(TOCLINETEMPLATEPATH));
+
+        let offset = 0;
+        if(groups.length > 0) {
+            offset = groups[0].GroupPageEnd;
         }
 
-        let footerFunction = function(currentPage: number, pageCount: number, pageSize: any): any {
-            let currentFooterHTML = footerHTML
-                .replaceAll("$currentPage", currentPage.toString())
-                .replaceAll("$pageCount",   pageCount.toString());
+        let tocAddedHTML = "";
+        tiddlers.forEach((tiddlerTitle, i) => {
+            let tiddler = $tw.wiki.getTiddler(tiddlerTitle);
+            let fields = (tiddler as any).getFieldStrings();
 
-            return htmlToPdfmake(currentFooterHTML, {
-                defaultStyles: emptyDefaultStyle,
-            })
-        }
+            let currentLineHTML = tocLineHTML;
+            for (let key in fields) {
+                currentLineHTML = currentLineHTML.replaceAll("$" + key, fields[key]);
+            }
+            
+            if(groups.length > 0) {
+                currentLineHTML = currentLineHTML.replaceAll("$page", (groups[i + 1].GroupPageStart - offset).toString());
+                currentLineHTML = currentLineHTML.replaceAll("$end", (groups[i + 1].GroupPageEnd - offset).toString());
+            }
 
-        let backgroundFunction = function(currentPage: number, pageSize: any): any {
-            let currentBackgroundHTML = backgroundHTML
-                .replaceAll("$currentPage", currentPage.toString());
+            tocAddedHTML += currentLineHTML;
+        })
 
-            return htmlToPdfmake(currentBackgroundHTML, {
-                defaultStyles: emptyDefaultStyle,
-            })
-        }
+        tocAddedHTML = tocHTML.replaceAll("$toc-lines", tocAddedHTML);
+
+        let html: { content: any[], images: string[] } = <any>htmlToPdfmake(tocAddedHTML, {
+            imagesByReference: true,
+            defaultStyles: emptyDefaultStyle,
+        })
+        
+        html.content[0].GroupStart = true;
+        html.content[0].GroupName = "index";
+        html.content[html.content.length - 1].pageBreak = 'after';
+
+        return html;
+    }
+
+    async createPDF() {
+        const tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
+
+        const defFont = this.getTiddlerContent(DEFAULTFONT);
+
+        const breakPages = (this.getTiddlerContent(PAGEBREAK) === "true") ? true : false;
+        const addToc = (this.getTiddlerContent(TOC) === "true") ? true : false;
+
+        const headerHTML = this.getTiddlerContent(this.getTiddlerContent(HEADERTEMPLATEPATH));
+        const footerHTML = this.getTiddlerContent(this.getTiddlerContent(FOOTERTEMPLATEPATH));
+        const pageHTML   = this.getTiddlerContent(this.getTiddlerContent(PAGETEMPLATEPATH));
+        const backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
+
+        const fileName = this.getTiddlerContent(FILENAME);
+
+        this.loadFonts();
 
         let dd: docDefinition = {
-            header: headerFunction,
-            footer: footerFunction,
-            background: backgroundFunction,
+            header: () => {
+                return htmlToPdfmake(headerHTML, {
+                    defaultStyles: emptyDefaultStyle,
+                })
+            },
+            footer: () => {
+                return htmlToPdfmake(footerHTML, {
+                    defaultStyles: emptyDefaultStyle,
+                })
+            },
             content: [],
             images: {},
             styles: this.getPDFStyles(),
@@ -215,8 +253,6 @@ class ExportAsPDF extends Widget {
                 fontSize: 14
             }
         };
-
-        let tiddlerIds: string[] = [];
 
         tiddlers.forEach((tiddlerTitle, i) => {
             let options = {};
@@ -245,13 +281,11 @@ class ExportAsPDF extends Widget {
 
             let html: { content: any[], images: string[] } = <any>htmlToPdfmake(currentPageHTML, {
                 imagesByReference: true,
-                defaultStyles: emptyDefaultStyle,
+                defaultStyles: emptyDefaultStyle
             })
 
-            let tiddlerId = (html.content[0].text as string).toLowerCase().replace(" ", "-");
-
-            html.content[0].id = tiddlerId;
-            tiddlerIds.push(tiddlerId);
+            html.content[0].GroupStart = true;
+            html.content[0].GroupName = tiddlerTitle;
 
             if (breakPages && i < tiddlers.length - 1) {
                 html.content[html.content.length - 1].pageBreak = 'after';
@@ -262,36 +296,6 @@ class ExportAsPDF extends Widget {
                 Object.assign(dd.images, html.images);
             }
         });
-
-        if(addToc) {
-            let tocAddedHTML = "";
-            tiddlers.forEach((tiddlerTitle, i) => {
-                let tiddler = $tw.wiki.getTiddler(tiddlerTitle);
-                let fields = (tiddler as any).getFieldStrings();
-
-                let currentLineHTML = tocLineHTML;
-                for (let key in fields) {
-                    currentLineHTML = currentLineHTML.replaceAll("$" + key, fields[key]);
-                }
-                currentLineHTML = currentLineHTML.replaceAll("$id", tiddlerIds[i]);
-
-                tocAddedHTML += currentLineHTML;
-            })
-
-            tocAddedHTML = tocHTML.replaceAll("$toc-lines", tocAddedHTML);
-
-            let html: { content: any[], images: string[] } = <any>htmlToPdfmake(tocAddedHTML, {
-                imagesByReference: true,
-                defaultStyles: emptyDefaultStyle,
-            })
-            
-            html.content[html.content.length - 1].pageBreak = 'after';
-
-            dd.content.unshift(...html.content)
-            if (Object.keys(html.images).length !== 0) {
-                Object.assign(dd.images, html.images);
-            }
-        };
 
         for (const [key, value] of Object.entries(dd.images)) {
             let srcImg = new Image();
@@ -308,7 +312,135 @@ class ExportAsPDF extends Widget {
             dd.images[key] = canvas.toDataURL("image/png", 0.7);
         }
 
-        pdfMake.createPdf(<any>dd).download(fileName);
+        var pdfDocGenerator;
+
+        let ddCopy: docDefinition = JSON.parse(JSON.stringify(dd));
+
+        if(addToc) {
+            let html = this.generateTOC(tiddlers, [])
+
+            dd.content.unshift(...html.content)
+            if (Object.keys(html.images).length !== 0) {
+                Object.assign(dd.images, html.images);
+            }
+        };
+
+        pdfDocGenerator = pdfMake.createPdf(<any>dd);
+
+        // This modifies dd to add positions, the return value is never used.
+        pdfDocGenerator.getStream();
+
+        let pdf_groups: pageGroup[] = [];
+        let grouping = 0;
+
+        for (let x=0; x < dd.content.length; x++) {
+            if (dd.content[x].GroupStart != undefined && dd.content[x].GroupStart == true) {
+
+                if(pdf_groups.length != 0) {
+                    pdf_groups[grouping].GroupPageEnd = dd.content[x].positions[0].pageNumber - 1;
+                    grouping++;
+                }
+
+                pdf_groups.push({ 
+                    GroupName: dd.content[x].GroupName, 
+                    GroupPageStart: dd.content[x].positions[0].pageNumber, 
+                    GroupPageEnd: dd.content[x].positions[0].pageNumber
+                });
+            }
+        }
+        
+        let lastPage = dd.content[dd.content.length - 1].positions[0].pageNumber;
+        pdf_groups[grouping].GroupPageEnd = lastPage;
+        
+        let pageOffset = 0;
+        if(addToc) {
+            let html = this.generateTOC(tiddlers, pdf_groups)
+
+            ddCopy.content.unshift(...html.content)
+            if (Object.keys(html.images).length !== 0) {
+                Object.assign(ddCopy.images, html.images);
+            }
+
+            pageOffset = pdf_groups[0].GroupPageEnd;
+        };
+
+        ddCopy.header = (currentPage: number, pageCount: number): any => {
+            let group = this.getGroupFromPage(pdf_groups, currentPage);
+
+            if(group!.GroupName == "index") {
+                return;
+            }
+
+            let title = group?.GroupName;
+            let tiddler = $tw.wiki.getTiddler(title!);
+            let fields = (tiddler as any).getFieldStrings();
+
+            let currentHTML = headerHTML;
+            for (let key in fields) {
+                currentHTML = currentHTML.replaceAll("$" + key, fields[key]);
+            }
+
+            currentHTML = currentHTML
+                .replaceAll("$currentPage", (currentPage - pageOffset).toString())
+                .replaceAll("$pageCount",   (pageCount - pageOffset).toString());
+     
+            return htmlToPdfmake(currentHTML, {
+                defaultStyles: emptyDefaultStyle,
+            })
+        }
+
+        ddCopy.footer = (currentPage: number, pageCount: number): any => {
+            let group = this.getGroupFromPage(pdf_groups, currentPage);
+
+            if(group!.GroupName == "index") {
+                return;
+            }
+
+            let title = group?.GroupName;
+            let tiddler = $tw.wiki.getTiddler(title!);
+            let fields = (tiddler as any).getFieldStrings();
+
+            let currentHTML = footerHTML;
+            for (let key in fields) {
+                currentHTML = currentHTML.replaceAll("$" + key, fields[key]);
+            }
+
+            currentHTML = currentHTML
+                .replaceAll("$currentPage", (currentPage - pageOffset).toString())
+                .replaceAll("$pageCount",   (pageCount - pageOffset).toString());
+     
+            return htmlToPdfmake(currentHTML, {
+                defaultStyles: emptyDefaultStyle,
+            })
+        }
+
+        ddCopy.background = (currentPage: number): any => {
+            let group = this.getGroupFromPage(pdf_groups, currentPage);
+
+            if(group!.GroupName == "index") {
+                return;
+            }
+
+            let title = group?.GroupName;
+            let tiddler = $tw.wiki.getTiddler(title!);
+            let fields = (tiddler as any).getFieldStrings();
+
+            let currentHTML = backgroundHTML;
+            for (let key in fields) {
+                currentHTML = currentHTML.replaceAll("$" + key, fields[key]);
+            }
+
+            currentHTML = currentHTML
+                .replaceAll("$currentPage", (currentPage - pageOffset).toString());
+     
+            return htmlToPdfmake(currentHTML, {
+                defaultStyles: emptyDefaultStyle,
+            })
+        }
+
+        pdfDocGenerator = pdfMake.createPdf(<any>ddCopy);
+
+        pdfDocGenerator.download(fileName);
     }
 
     invokeAction(triggeringWidget: Widget, event: IWidgetEvent) {

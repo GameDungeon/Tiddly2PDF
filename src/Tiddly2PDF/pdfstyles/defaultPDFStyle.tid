@@ -105,6 +105,14 @@ list-before:
     alignment: center;
 }
 
+.right: {
+    alignment: right;
+}
+
+.left: {
+    alignment: left;
+}
+
 .tc-inline-style: {
     background: #ffff78;
 }
@@ -117,4 +125,8 @@ list-before:
 
 .pdf-title: {
     alignment: center
+}
+
+.toc: {
+    fillColor: #ffffff;
 }

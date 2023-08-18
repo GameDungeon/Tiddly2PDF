@@ -1,13 +1,13 @@
 created: 20230607192000566
 list-after: Fonts
-modified: 20230813221814934
+modified: 20230818002607436
 tags: pdf
 title: Templates
 type: text/vnd.tiddlywiki
 
 The template tiddlers are pure html with a few values that are dynamically replaced. 
 
-''All fields'' can be used as template values when used in the format "$field" in the ''page & toc line templates'' . These will be replaced with there corresponding field value.
+''All tiddler fields'' can be used as template values when used in the format "$field" . These will be replaced with there corresponding field value.
 
 In the ''header template'' those values are:
 
@@ -25,15 +25,13 @@ In the ''background template'' those values are:
 
 In the ''page template'' those values are:
 
-* ''$field'' - Is replaced with the value of the field used
 * ''$title'' - Is replaced with the tiddler's title
 * ''$body'' - Is replaced with the html of the tiddler's content
 
 In the ''table of contents template'' those values are:
 
-* ''$toc-lines'' - Is replaced with 
+* ''$toc-lines'' - Is replaced with lines of the TOC.
 
 In the ''table of contents line template'' those values are:
 
-* ''$field'' - Is replaced with the value of the field used
-* ''$id'' - Is replaced with the id of the page this line is for
+* ''$page'' - Is replaced with the id of the page this line is for
