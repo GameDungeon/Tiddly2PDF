@@ -86,13 +86,18 @@ class ExportAsPDF extends Widget {
         return $tw.wiki.filterTiddlers(this.getTiddlerContent(path));
     }
 
-    getGroupFromPage(groups: pageGroup[], i: number): pageGroup | undefined {
+    getGroupFromPage(groups: pageGroup[], i: number): pageGroup {
+
+        if(i < 1)
+            return groups[0];
+        
         for (const group of groups) {
             if (i >= group.GroupPageStart && group.GroupPageEnd >= i) {
               return group;
             }
         }
-        return undefined;
+
+        return groups[groups.length - 1];
     }
 
     getPDFStyles() {
@@ -213,6 +218,8 @@ class ExportAsPDF extends Widget {
         html.content[0].GroupStart = true;
         html.content[0].GroupName = "index";
         html.content[html.content.length - 1].pageBreak = 'after';
+
+        console.log(html)
 
         return html;
     }
@@ -348,10 +355,7 @@ class ExportAsPDF extends Widget {
                 });
             }
         }
-        
-        let lastPage = dd.content[dd.content.length - 1].positions[0].pageNumber;
-        pdf_groups[grouping].GroupPageEnd = lastPage;
-        
+
         let pageOffset = 0;
         if(addToc) {
             let html = this.generateTOC(tiddlers, pdf_groups)

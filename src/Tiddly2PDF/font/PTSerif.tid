@@ -1,8 +1,0 @@
-bold: $:/fonts/PTSerif-Bold.ttf
-caption: PTSerif
-italic: $:/fonts/PTSerif-Italic.ttf
-italicbold: $:/fonts/PTSerif-BoldItalic.ttf
-normal: $:/fonts/PTSerif-Regular.ttf
-tags: $:/tags/Tiddly2PDF/PDFFont
-title: $:/fonts/PTSerif
-type: text/vnd.tiddlywiki

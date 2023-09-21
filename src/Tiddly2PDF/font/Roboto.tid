@@ -1,0 +1,8 @@
+bold: $:/fonts/Roboto-Bold.ttf
+caption: Roboto
+italic: $:/fonts/Roboto-Italic.ttf
+italicbold: $:/fonts/Roboto-BoldItalic.ttf
+normal: $:/fonts/Roboto-Regular.ttf
+tags: $:/tags/Tiddly2PDF/PDFFont
+title: $:/fonts/Roboto
+type: text/vnd.tiddlywiki
