@@ -1,4 +1,4 @@
-import { IWidgetEvent } from 'tiddlywiki';
+import { IWidgetEvent, Tiddler } from 'tiddlywiki';
 import { widget as Widget } from '$:/core/modules/widgets/widget.js';
 import { decompressSync, strFromU8, strToU8 } from 'fflate';
 
@@ -30,6 +30,7 @@ interface docDefinition {
     header: CallableFunction,
     footer: CallableFunction,
     background?: CallableFunction,
+    info?: any,
     content: any[],
     images: any,
     styles: any,
@@ -72,11 +73,26 @@ const emptyDefaultStyle: any = {
 }
 
 class ExportAsPDF extends Widget {
+    singleTiddler: string | undefined;
+
     // @ts-ignore
     render(parent: Node, _nextSibling: Node) {
         this.computeAttributes();
         this.execute();
     }
+
+    execute() {
+        this.singleTiddler = this.getAttribute("$tiddler");
+    }
+
+    refresh(changedTiddlers: any) { 
+        var changedAttributes = this.computeAttributes();
+        if($tw.utils.count(changedAttributes) > 0) {
+            this.refreshSelf();
+            return true;
+        }
+        return this.refreshChildren(changedTiddlers);
+    };
 
     getTiddlerContent(path: string): string {
         return ($tw.wiki.getTiddler(path) as any).fields.text.trim()
@@ -123,12 +139,10 @@ class ExportAsPDF extends Widget {
                     if(parsedStyles[selector] === undefined)
                         parsedStyles[selector] = {}
 
-
                     let val = declaration.value;
                     try {
                         val = JSON.parse(declaration.value!);
-                    } catch {
-                    }
+                    } catch {}
 
                     parsedStyles[selector][declaration.property!] = val;
                 });
@@ -219,13 +233,18 @@ class ExportAsPDF extends Widget {
         html.content[0].GroupName = "index";
         html.content[html.content.length - 1].pageBreak = 'after';
 
-        console.log(html)
-
         return html;
     }
 
     async createPDF() {
-        const tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
+
+        let tiddlers;
+
+        if(this.singleTiddler === undefined) {
+            tiddlers = this.getTidsFromFilterTid(PAGEFILTER);
+        } else {
+            tiddlers = [this.singleTiddler];
+        }
 
         const defFont = this.getTiddlerContent(DEFAULTFONT);
 
@@ -238,6 +257,8 @@ class ExportAsPDF extends Widget {
         const backgroundHTML = this.getTiddlerContent(this.getTiddlerContent(BACKGROUNDTEMPLATEPATH));
 
         const fileName = this.getTiddlerContent(FILENAME);
+
+        console.log(tiddlers);
 
         this.loadFonts();
 
@@ -252,6 +273,9 @@ class ExportAsPDF extends Widget {
                     defaultStyles: emptyDefaultStyle,
                 })
             },
+            info: {
+                title: fileName,
+            },            
             content: [],
             images: {},
             styles: this.getPDFStyles(),
@@ -357,7 +381,7 @@ class ExportAsPDF extends Widget {
         }
 
         let pageOffset = 0;
-        if(addToc) {
+        if(addToc && !this.singleTiddler) {
             let html = this.generateTOC(tiddlers, pdf_groups)
 
             ddCopy.content.unshift(...html.content)
@@ -444,7 +468,7 @@ class ExportAsPDF extends Widget {
 
         pdfDocGenerator = pdfMake.createPdf(<any>ddCopy);
 
-        pdfDocGenerator.download(fileName);
+        pdfDocGenerator.open({});
     }
 
     invokeAction(triggeringWidget: Widget, event: IWidgetEvent) {

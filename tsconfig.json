@@ -1,12 +1,25 @@
 {
-  "extends": "@modern-js/tsconfig/base.json",
   "compilerOptions": {
+    "target": "ES2015",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "types": ["tw5-typed"],
+    "allowJs": true,
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "declaration": false,
     "jsx": "preserve",
-    "baseUrl": "./",
-    "types": ["tw5-typed"],
-    "lib": ["DOM", "ESNext"]
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
   },
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Base",
   "include": ["src"],
   "exclude": ["./**/*.js"]
 }
