@@ -28,37 +28,37 @@ list-before:
 }
 
 .html-h1: {
-    fontSize: 24;
+    fontSize: 28;
     bold: true;
     marginBottom: 5;
 }
 
 .html-h2: {
-    fontSize: 20;
+    fontSize: 21;
     bold: true;
     marginBottom: 5;
 }
 
 .html-h3: {
-    fontSize: 16;
+    fontSize: 16.38;
     bold: true;
     marginBottom: 5;
 }
 
 .html-h4: {
-    fontSize: 18;
-    bold: true;
-    marginBottom: 5;
-}
-
-.html-h5: {
     fontSize: 14;
     bold: true;
     marginBottom: 5;
 }
 
+.html-h5: {
+    fontSize: 11.62;
+    bold: true;
+    marginBottom: 5;
+}
+
 .html-h6: {
-    fontSize: 12;
+    fontSize: 9.38;
     bold: true;
     marginBottom: 5;
 }
